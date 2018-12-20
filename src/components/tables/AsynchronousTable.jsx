@@ -32,7 +32,7 @@ class AsynchronousTable extends React.Component {
         data: []
     };
     componentDidMount() {
-        this.start();
+        //this.start();
     }
     start = () => {
         this.setState({ loading: true });
