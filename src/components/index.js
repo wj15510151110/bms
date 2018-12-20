@@ -30,6 +30,11 @@ import QueryParams from './extension/QueryParams';
 //新增路由
 import MemberList from './BMScomponent/member/MemberList'
 import MemberAdd from './BMScomponent/member/MemberAdd'
+import AdminList from './BMScomponent/admin/AdminList'
+import AdminAdd from './BMScomponent/admin/AdminAdd'
+import MailBox from './BMScomponent/system/MailBox'
+import SetUp from './BMScomponent/system/SetUp'
+import ShortMessage from './BMScomponent/system/ShortMessage'
 
 
 const WysiwygBundle = Loadable({ // 按需加载富文本配置
@@ -39,10 +44,11 @@ const WysiwygBundle = Loadable({ // 按需加载富文本配置
 
 export default {
   BasicForm, BasicTable, AdvancedTable, AsynchronousTable,
-  Echarts, Recharts, Icons, Buttons, Spins, Modals, Notifications,
-  Tabs, Banners, Drags, Dashboard, Gallery, BasicAnimations,
-  ExampleAnimations, AuthBasic, RouterEnter, WysiwygBundle,
-  Cssmodule, MapUi, QueryParams,
   MemberList,
   MemberAdd,
+  AdminList,
+  AdminAdd,
+  MailBox,
+  SetUp,
+  ShortMessage
 }

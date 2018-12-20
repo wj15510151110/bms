@@ -14,8 +14,10 @@ const handleData = (state = {isFetching: true, data: {}}, action) => {
             return {...state};
     }
 };
+
 const httpData = (state = {}, action) => {
-    switch (action.type) {
+  console.log(action,'action');
+  switch (action.type) {
         case type.RECEIVE_DATA:
         case type.REQUEST_DATA:
             return {

@@ -10,8 +10,7 @@ import queryString from 'query-string';
 export default class CRouter extends Component {
     requireAuth = (permission, component) => {
         const { auth } = this.props;
-      console.log(auth,'auth');
-      const { permissions } = auth.data;
+        const { permissions } = auth.data;
         // const { auth } = store.getState().httpData;
         if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'} />;
         return component;
@@ -48,9 +47,10 @@ export default class CRouter extends Component {
                                             });
                                             props.match.params = { ...params };
                                             const merge = { ...props, query: queryParams ? queryString.parse(queryParams[0]) : {} };
-                                            return r.login 
+                                           /* return r.login
                                                 ? <Component {...merge} />
-                                                : this.requireLogin(<Component {...merge} />, r.auth)
+                                                : this.requireLogin(<Component {...merge} />, r.auth)*/
+                                           return <Component {...merge} />
                                         }}
                                     />
                                 )
