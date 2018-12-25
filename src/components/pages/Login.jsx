@@ -10,7 +10,7 @@ import {PwaInstaller} from '../widget';
 
 import {notices} from '../../utils/notification'
 
-import {gitOauthTokenLogin} from '../../axios';
+import {gitOauthTokenLogin,getUserInfo,gitOauthTokenLoginF} from '../../axios';
 
 const FormItem = Form.Item;
 
@@ -18,17 +18,28 @@ class Login extends React.Component {
   componentWillMount() {
     const {receiveData} = this.props;
     console.log(receiveData,'receiveData');
-    receiveData(null, 'auth');
+    //receiveData(null, 'auth');
+    receiveData({status:false}, 'login');
   }
 
   componentDidUpdate(prevProps) { // React 16.3+弃用componentWillReceiveProps
-    const {auth: nextAuth = {}, history} = this.props;
+    const {auth: nextAuth = {},login: nextLogin  ={}, history} = this.props;
     // const { history } = this.props;
-    history.push('/');
-    if (nextAuth.data && nextAuth.data.uid) { // 判断是否登陆
-      localStorage.setItem('user', JSON.stringify(nextAuth.data));
+    console.log(nextLogin,'nextLogin');
+
+    //history.push('/');
+
+    if (nextLogin.data && nextLogin.data.status) { // 判断是否登陆
+      localStorage.setItem('login', JSON.stringify(nextLogin.data));
+      localStorage.setItem('user', JSON.stringify(nextLogin.data));
       history.push('/');
     }
+
+   /* if (nextAuth.data && nextAuth.data.uid) { // 判断是否登陆
+      localStorage.setItem('user', JSON.stringify(nextAuth.data));
+      history.push('/');
+    }*/
+
   }
 
   handleSubmit = (e) => {
@@ -38,7 +49,15 @@ class Login extends React.Component {
         console.log('Received values of form: ', values);
         const {fetchData} = this.props;
 
-       /* gitOauthTokenLogin(values).then(res => {
+
+
+      /*  let fd = new FormData()
+
+        fd.append('username','wangjie')
+        fd.append('password','123456')
+
+
+        gitOauthTokenLogin(fd).then(res => {
           console.log(res, 'gitOauthTokenLogin');
           if (res.status) {
             fetchData({
@@ -50,24 +69,26 @@ class Login extends React.Component {
           }
         })*/
 
-      /*  fetchData({
+        fetchData({
           funcName: 'gitOauthTokenLogin',
           params:values,
-          stateName: 'auth'
+          stateName: 'login'
         }).then(res => {
-          console.log(res, 'gitOauthTokenLogin');
-          if (res.data.status) {
-           /!* fetchData({
-              funcName: 'admin',
-              stateName: 'auth'
-            });*!/
+          console.log(res,'res');
+          if (res.data && res.data.status) {
+            fetchData({
+              funcName:'getUserInfo',
+              stateName:'info'
+            }).then(res => {
+              console.log(res,'getUserInfogetUserInfogetUserInfo');
+            })
           } else {
             notices.error(res.data.msg)
           }
-        })*/
+        })
 
 
-        if (values.username === 'admin' && values.password === 'admin') fetchData({
+        /*if (values.username === 'admin' && values.password === 'admin') fetchData({
           funcName: 'admin',
           stateName: 'auth'
         });
@@ -75,7 +96,7 @@ class Login extends React.Component {
         if (values.username === 'guest' && values.password === 'guest') fetchData({
           funcName: 'guest',
           stateName: 'auth'
-        });
+        });*/
       }
     });
   };
@@ -92,7 +113,7 @@ class Login extends React.Component {
               <span>会员管理系统</span>
               <PwaInstaller/>
             </div>
-            <Form onSubmit={this.handleSubmit} style={{maxWidth: '300px'}}>
+            <Form style={{maxWidth: '300px'}}>
               <FormItem>
                 {getFieldDecorator('username', {
                   rules: [{required: true, message: '请输入用户名!'}],
@@ -108,7 +129,7 @@ class Login extends React.Component {
                 )}
               </FormItem>
 
-              <Button type="primary" htmlType="submit" className="login-form-button" style={{width: '100%'}}>
+              <Button type="primary" onClick={this.handleSubmit} htmlType="submit" className="login-form-button" style={{width: '100%'}}>
                 登录
               </Button>
               {/* <FormItem>
@@ -135,12 +156,13 @@ class Login extends React.Component {
 }
 
 const mapStateToPorps = state => {
-  const {auth} = state.httpData;
-  return {auth};
+  console.log(state,'state');
+  const {auth,login} = state.httpData;
+  return {auth,login};
 };
 const mapDispatchToProps = dispatch => ({
   fetchData: bindActionCreators(fetchData, dispatch),
-  receiveData: bindActionCreators(receiveData, dispatch)
+  receiveData: bindActionCreators(receiveData, dispatch),
 });
 
 

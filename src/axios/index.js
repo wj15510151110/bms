@@ -2,7 +2,9 @@
  * Created by hao.cheng on 2017/4/16.
  */
 import axios from 'axios';
-import {get,post} from './tools';
+import {get} from './tools';
+import {post} from '../fetch'
+
 import * as config from './config';
 
 export const getPros = () => axios.post('http://api.xitu.io/resources/github', {
@@ -33,9 +35,18 @@ export const gitOauthToken = code => axios.post('https://cors-anywhere.herokuapp
 }, {headers: {Accept: 'application/json'}})
     .then(res => res.data).catch(err => console.log(err));
 
+
+const data = {
+  uid: 1,
+  permissions: ["auth", "auth/testPage", "auth/authPage", "auth/authPage/edit", "auth/authPage/visit"],
+  role: "系统管理员",
+  roleType: 1,
+  userName: "系统管理员"
+}
+
 export const gitOauthTokenLogin = params => axios.post('http://member.kylinclub.org/kylinclub/login', params, {
   transformRequest: [
-    function(params) {
+    function (params) {
       let str = ''
       for (let k in params) {
         if (params.hasOwnProperty(k)) {
@@ -45,12 +56,30 @@ export const gitOauthTokenLogin = params => axios.post('http://member.kylinclub.
       return str.slice(0, -1)
     }
   ]
-}).then(res => res.data).catch(err => console.log(err));
+}).then(res => {
+  console.log(res, 'resresres');
+  return {
+    ...res.data,
+    ...data,
+  }
+}).catch(err => console.log(err));
 
 
-export const getUser = access_token => axios({
+export const gitOauthTokenLoginF = params => post('http://member.kylinclub.org/kylinclub/login', params).then(res => {
+  return {
+    ...res.data,
+    ...data,
+  }
+}).catch(err => console.log(err));
+
+
+export const getUserInfo = () => axios({
   method: 'get',
-  url: 'https://api.github.com/user?access_token=' + access_token,
+  url: 'http://member.kylinclub.org/kylinclub/user/info'
+}, {
+  credentials: 'include',
+  mode: 'cors',
+  cache: 'default',
 }).then(res => res.data).catch(err => console.log(err));
 
 
@@ -58,8 +87,6 @@ export const gitOauthInfo = access_token => axios({
   method: 'get',
   url: 'https://api.github.com/user?access_token=' + access_token,
 }).then(res => res.data).catch(err => console.log(err));
-
-
 
 
 // easy-mock数据交互

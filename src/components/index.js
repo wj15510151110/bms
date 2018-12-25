@@ -50,5 +50,7 @@ export default {
   AdminAdd,
   MailBox,
   SetUp,
-  ShortMessage
+  ShortMessage,
+  Dashboard,
+  RouterEnter,
 }

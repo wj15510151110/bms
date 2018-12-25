@@ -60,7 +60,7 @@ class App extends Component {
         });
     };
     render() {
-        const { auth, responsive } = this.props;
+        const { auth, responsive ,login} = this.props;
         return (
             <Layout>
                 {!responsive.data.isMobile && <SiderCustom collapsed={this.state.collapsed} />}
@@ -68,7 +68,7 @@ class App extends Component {
                 <Layout style={{flexDirection: 'column'}}>
                     <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} user={auth.data || {}} />
                     <Content style={{ margin: '0 16px', overflow: 'initial', flex: '1 1 0' }}>
-                        <Routes auth={auth} />
+                        <Routes auth={auth} login={login} />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
                     React-Admin ©{new Date().getFullYear()} Created by 865470087@qq.com
@@ -92,8 +92,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-    const { auth = {data: {}}, responsive = {data: {}} } = state.httpData;
-    return {auth, responsive};
+    const { auth = {data: {}}, login, responsive = {data: {}} } = state.httpData;
+    return {auth, login,responsive};
 };
 const mapDispatchToProps = dispatch => ({
     receiveData: bindActionCreators(receiveData, dispatch)
