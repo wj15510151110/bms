@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/local/bin/node /usr/local/bin/yarn
+  /usr/local/bin/node /usr/local/bin/yarn start
 
 PATH: 
-  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+  /usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/wangjie/WebstormSpace/自己搭建/bms/node_modules/.bin
 
 Yarn version: 
   1.9.4
@@ -14,11 +14,13 @@ Platform:
   darwin x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/ms/-/ms-2.1.1.tgz: ETIMEDOUT
-      at Timeout._onTimeout (/usr/local/lib/node_modules/yarn/lib/cli.js:138128:19)
-      at ontimeout (timers.js:498:11)
-      at tryOnTimeout (timers.js:323:5)
-      at Timer.listOnTimeout (timers.js:290:5)
+  SyntaxError: /Users/wangjie/WebstormSpace/自己搭建/bms/package.json: Unexpected token } in JSON at position 3893
+      at JSON.parse (<anonymous>)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:1130:59
+      at Generator.next (<anonymous>)
+      at step (/usr/local/lib/node_modules/yarn/lib/cli.js:92:30)
+      at /usr/local/lib/node_modules/yarn/lib/cli.js:103:13
+      at <anonymous>
 
 npm manifest: 
   {
@@ -50,6 +52,7 @@ npm manifest:
       "draftjs-to-markdown": "^0.5.1",
       "echarts": "^4.2.0-rc.1",
       "echarts-for-react": "^2.0.15-beta.0",
+      "es6-promise": "^4.2.5",
       "eslint": "5.6.0",
       "eslint-config-react-app": "^3.0.3",
       "eslint-loader": "2.1.1",
@@ -158,7 +161,7 @@ npm manifest:
       "presets": [
         "react-app"
       ]
-    }
+    },
   }
 
 yarn manifest: 
@@ -3836,6 +3839,10 @@ Lockfile:
       is-callable "^1.1.4"
       is-date-object "^1.0.1"
       is-symbol "^1.0.2"
+  
+  es6-promise@^4.2.5:
+    version "4.2.5"
+    resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.5.tgz#da6d0d5692efb461e082c14817fe2427d8f5d054"
   
   escape-html@~1.0.3:
     version "1.0.3"

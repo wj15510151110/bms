@@ -1,6 +1,3 @@
-/**
- * Created by 叶子 on 2017/7/30.
- */
 import * as type from './type';
 import * as http from '../axios/index';
 
@@ -16,6 +13,15 @@ export const receiveData = (data, category) => ({
     data,
     category
 });
+
+
+
+//info
+export const infoData = (data, category) => ({
+    type: type.INFI_DATA,
+    data,
+    category
+});
 /**
  * 请求数据调用方法
  * @param funcName      请求接口的函数名
@@ -27,4 +33,9 @@ export const fetchData = ({funcName, params, stateName}) => dispatch => {
     dispatch(requestData(stateName));
 
     return http[funcName](params).then(res => dispatch(receiveData(res, stateName)));
+};
+
+export const fetchInfo = ({funcName, stateName}) => dispatch => {
+
+    return http[funcName]().then(res => dispatch(infoData(res, stateName)));
 };

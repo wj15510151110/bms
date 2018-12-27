@@ -2,10 +2,8 @@
  * Created by hao.cheng on 2017/4/13.
  */
 import React, {Component} from 'react';
-import {Menu, Icon, Layout, Badge, Popover} from 'antd';
+import {Menu, Icon, Layout, Popover} from 'antd';
 import screenfull from 'screenfull';
-import {gitOauthToken, gitOauthInfo} from '../axios';
-import {queryString} from '../utils';
 import avater from '../style/imgs/touxiang.jpg';
 import SiderCustom from './SiderCustom';
 import {connect} from 'react-redux';
@@ -23,22 +21,10 @@ class HeaderCustom extends Component {
   };
 
   componentDidMount() {
-    const QueryString = queryString();
-    const _user = JSON.parse(localStorage.getItem('user')) || '测试';
-    if (!_user && QueryString.hasOwnProperty('code')) {
-      gitOauthToken(QueryString.code).then(res => {
-        gitOauthInfo(res.access_token).then(info => {
-          this.setState({
-            user: info
-          });
-          localStorage.setItem('user', JSON.stringify(info));
-        });
-      });
-    } else {
-      this.setState({
-        user: _user
-      });
-    }
+    const user = JSON.parse(localStorage.getItem('info'));
+    this.setState({
+      user,
+    });
   };
 
   screenFull = () => {
@@ -54,6 +40,7 @@ class HeaderCustom extends Component {
   logout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('login');
+    localStorage.removeItem('info');
     this.props.history.push('/login')
   };
   popoverHide = () => {
@@ -66,6 +53,7 @@ class HeaderCustom extends Component {
   };
 
   render() {
+    let {user} = this.state
     const {responsive, path} = this.props;
     return (
         <Header className="custom-theme header">

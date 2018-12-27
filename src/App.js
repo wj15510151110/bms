@@ -26,28 +26,7 @@ class App extends Component {
             this.getClientWidth();
         }
     }
-    componentDidMount() {
-      /*  const openNotification = () => {
-            notification.open({
-              message: '博主-yezihaohao',
-              description: (
-                  <div>
-                      <p>
-                          GitHub地址： <a href="https://github.com/yezihaohao" target="_blank" rel="noopener noreferrer">https://github.com/yezihaohao</a>
-                      </p>
-                      <p>
-                          博客地址： <a href="https://yezihaohao.github.io/" target="_blank" rel="noopener noreferrer">https://yezihaohao.github.io/</a>
-                      </p>
-                  </div>
-              ),
-              icon: <Icon type="smile-circle" style={{ color: 'red' }} />,
-              duration: 0,
-            });
-            localStorage.setItem('isFirst', JSON.stringify(true));
-        };
-        const isFirst = JSON.parse(localStorage.getItem('isFirst'));
-        !isFirst && openNotification();*/
-    }
+
     getClientWidth = () => { // 获取当前浏览器宽度并设置responsive管理响应式
         const { receiveData } = this.props;
         const clientWidth = window.innerWidth;
@@ -59,6 +38,7 @@ class App extends Component {
             collapsed: !this.state.collapsed,
         });
     };
+
     render() {
         const { auth, responsive ,login} = this.props;
         return (
@@ -68,24 +48,12 @@ class App extends Component {
                 <Layout style={{flexDirection: 'column'}}>
                     <HeaderCustom toggle={this.toggle} collapsed={this.state.collapsed} user={auth.data || {}} />
                     <Content style={{ margin: '0 16px', overflow: 'initial', flex: '1 1 0' }}>
-                        <Routes auth={auth} login={login} />
+                        <Routes auth={auth} login={login}/>
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
-                    React-Admin ©{new Date().getFullYear()} Created by 865470087@qq.com
+                        麒麟会 ©{new Date().getFullYear()}
                     </Footer>
                 </Layout>
-                
-                {/* {
-                    responsive.data.isMobile && (   // 手机端对滚动很慢的处理
-                        <style>
-                        {`
-                            #root{
-                                height: auto;
-                            }
-                        `}
-                        </style>
-                    )
-                } */}
             </Layout>
         );
     }

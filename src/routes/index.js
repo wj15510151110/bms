@@ -1,40 +1,21 @@
-/**
- * Created by 叶子 on 2017/8/13.
- */
 import React, {Component} from 'react';
 import {Route, Redirect, Switch} from 'react-router-dom';
+import {getUserInfo} from '../axios';
 import AllComponents from '../components';
 import routesConfig from './config';
 import queryString from 'query-string';
 
 export default class CRouter extends Component {
-  requireAuth = (permission, component) => {
-    const {auth} = this.props;
-    const {permissions} = auth.data;
-    // const { auth } = store.getState().httpData;
-    if (!permissions || !permissions.includes(permission)) return <Redirect to={'404'}/>;
-    return component;
-  };
-  /*    requireLogin = (component, permission) => {
-          const { auth } = this.props;
-          const { permissions } = auth.data;
-          if (process.env.NODE_ENV === 'production' && !permissions) { // 线上环境判断是否登录
-              return <Redirect to={'/login'} />;
-          }
-          return permission ? this.requireAuth(permission, component) : component;
-      };*/
 
-  requireLogin = (component, permission) => {
-    const {auth,login} = this.props;
-    console.log(login,'loginloginlogin-----loginloginlogin');
-    const {permissions} = auth.data;
-  /*  if (process.env.NODE_ENV === 'production' && !permissions) { // 线上环境判断是否登录
+
+  requireLogin = (component) => {
+    const infoUser = JSON.parse(localStorage.getItem('info'));
+
+   /* if (!infoUser) {
+      console.log(infoUser,'infoUser')
       return <Redirect to={'/login'}/>;
     }*/
-   /* if (!Object.keys(login.data).length > 0) { // 线上环境判断是否登录
-      return <Redirect to={'/login'}/>;
-    }*/
-    return permission ? this.requireAuth(permission, component) : component;
+    return component;
   };
 
   render() {
@@ -61,9 +42,9 @@ export default class CRouter extends Component {
                               });
                               props.match.params = {...params};
                               const merge = {...props, query: queryParams ? queryString.parse(queryParams[0]) : {}};
-                              return r.login
+                              return r.key == '/login'
                                   ? <Component {...merge} />
-                                  : this.requireLogin(<Component {...merge} />, r.auth)
+                                  : this.requireLogin(<Component {...merge} />)
                             }}
                         />
                     )
