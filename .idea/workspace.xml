@@ -2,27 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d2e6c4c0-4b57-41a0-804e-d955939ee622" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/BMScomponent/publicTable/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/action/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/action/type.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/action/type.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axios/config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/axios/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axios/tools.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios/tools.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/BMScomponent/member/MemberAdd.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BMScomponent/member/MemberAdd.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BMScomponent/member/MemberEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BMScomponent/member/MemberEdit.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BMScomponent/member/MemberList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BMScomponent/member/MemberList.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/BMScomponent/member/MemberTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BMScomponent/member/MemberTable.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/HeaderCustom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/HeaderCustom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/SiderCustom.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/SiderCustom.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/Basic.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/Basic.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/auth/RouterEnter.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/auth/RouterEnter.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/pages/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/pages/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/widget/AuthWidget.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/widget/AuthWidget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/reducer/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/reducer/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn-error.log" beforeDir="false" afterPath="$PROJECT_DIR$/yarn-error.log" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,48 +21,12 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/pages/Login.jsx">
+        <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberList.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
+            <state relative-caret-position="343">
+              <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
               <folding>
                 <element signature="e#46#72#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-              <folding>
-                <element signature="e#39#78#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/axios/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="106" selection-start-line="23" selection-start-column="106" selection-end-line="23" selection-end-column="106" />
-              <folding>
-                <element signature="e#46#72#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/App.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="50" column="28" selection-start-line="50" selection-start-column="28" selection-end-line="50" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -86,10 +35,46 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberTable.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="784">
-              <caret line="245" column="21" lean-forward="true" selection-start-line="245" selection-start-column="21" selection-end-line="245" selection-end-column="21" />
+            <state relative-caret-position="301">
+              <caret line="113" column="9" selection-start-line="113" selection-start-column="9" selection-end-line="113" selection-end-column="9" />
               <folding>
                 <element signature="e#46#72#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/axios/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="88" column="6" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
+              <folding>
+                <element signature="e#46#72#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberAdd.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="313">
+              <caret line="39" column="15" selection-start-line="39" selection-start-column="15" selection-end-line="39" selection-end-column="15" />
+              <folding>
+                <element signature="e#46#67#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberEdit.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="430">
+              <caret line="45" column="67" selection-start-line="45" selection-start-column="67" selection-end-line="45" selection-end-column="67" />
+              <folding>
+                <element signature="e#0#25#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -106,16 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>handleSubmit</find>
-      <find>submit</find>
-      <find>addMember</find>
-      <find>handleCancel</find>
-      <find>gitOauthTokenLoginF</find>
-      <find>setItem</find>
-      <find>menuClick</find>
-      <find>responsive</find>
-      <find>login</find>
-      <find>EditData</find>
       <find>退出登录</find>
       <find>requireAuth</find>
       <find>getUserInfo</find>
@@ -127,7 +102,6 @@
       <find>requireLogin</find>
       <find>Received values of form</find>
       <find>叶子</find>
-      <find>data</find>
       <find>info</find>
       <find>gitOauthToken</find>
       <find>gitOauthLogin</find>
@@ -136,6 +110,17 @@
       <find>npmDependencies</find>
       <find>getPros</find>
       <find>gitOauthTokenLogin</find>
+      <find>Redirect</find>
+      <find>MemberList</find>
+      <find>overtime</find>
+      <find>会员列表</find>
+      <find>birthdaybirthday编辑</find>
+      <find>editMember</find>
+      <find>visible</find>
+      <find>dataset</find>
+      <find>data</find>
+      <find>getMemberList</find>
+      <find>columns</find>
     </findStrings>
     <replaceStrings>
       <replace>ShortMessage</replace>
@@ -152,7 +137,6 @@
         <option value="$PROJECT_DIR$/src/components/BMScomponent/BasicTables.jsx" />
         <option value="$PROJECT_DIR$/src/components/BMScomponent/member/BasicTables.jsx" />
         <option value="$PROJECT_DIR$/src/components/BMScomponent/member/memberlist.jsx" />
-        <option value="$PROJECT_DIR$/src/components/BMScomponent/member/MemberList.jsx" />
         <option value="$PROJECT_DIR$/src/components/BMScomponent/admin/MemberList.jsx" />
         <option value="$PROJECT_DIR$/src/components/BMScomponent/admin/AdminTable.jsx" />
         <option value="$PROJECT_DIR$/src/components/BMScomponent/admin/AdminAdd.jsx" />
@@ -170,12 +154,9 @@
         <option value="$PROJECT_DIR$/src/components/SiderCustom.jsx" />
         <option value="$PROJECT_DIR$/src/components/BMScomponent/member/index.less" />
         <option value="$PROJECT_DIR$/src/style/index.less" />
-        <option value="$PROJECT_DIR$/src/components/BMScomponent/member/MemberEdit.js" />
         <option value="$PROJECT_DIR$/src/components/HeaderCustom.jsx" />
         <option value="$PROJECT_DIR$/src/components/pages/Login.jsx" />
-        <option value="$PROJECT_DIR$/src/components/BMScomponent/member/MemberAdd.jsx" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/components/BMScomponent/member/MemberTable.jsx" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/reducer/index.js" />
         <option value="$PROJECT_DIR$/src/axios/config.js" />
@@ -186,12 +167,17 @@
         <option value="$PROJECT_DIR$/src/components/auth/RouterEnter.js" />
         <option value="$PROJECT_DIR$/src/components/widget/AuthWidget.js" />
         <option value="$PROJECT_DIR$/src/components/auth/Basic.js" />
+        <option value="$PROJECT_DIR$/src/components/BMScomponent/member/MemberList.jsx" />
+        <option value="$PROJECT_DIR$/src/components/BMScomponent/member/MemberAdd.jsx" />
         <option value="$PROJECT_DIR$/src/axios/index.js" />
+        <option value="$PROJECT_DIR$/src/components/BMScomponent/member/MemberTable.jsx" />
+        <option value="$PROJECT_DIR$/src/components/BMScomponent/member/MemberEdit.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="y" value="23" />
+    <option name="x" value="114" />
+    <option name="y" value="24" />
     <option name="width" value="1680" />
     <option name="height" value="980" />
   </component>
@@ -217,6 +203,21 @@
               <item name="bms" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="BMScomponent" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="bms" type="b2602c69:ProjectViewProjectNode" />
+              <item name="bms" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="BMScomponent" type="462c0819:PsiDirectoryNode" />
+              <item name="member" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -283,15 +284,16 @@
       <workItem from="1545701385548" duration="37681000" />
       <workItem from="1545874579342" duration="217000" />
       <workItem from="1545875458349" duration="29000" />
-      <workItem from="1545875490839" duration="11885000" />
+      <workItem from="1545875490839" duration="15515000" />
+      <workItem from="1546390979171" duration="2884000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="96594000" />
+    <option name="totallyTimeSpent" value="103108000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1680" height="980" extended-state="6" />
+    <frame x="10" y="23" width="1680" height="980" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16395418" />
@@ -309,7 +311,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="11" weight="0.2195946" />
+      <window_info anchor="bottom" id="Terminal" order="11" visible="true" weight="0.2195946" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -575,16 +577,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberList.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
-          <folding>
-            <element signature="e#46#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/pages/NotFound.jsx">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -592,13 +584,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23">
           <caret line="1" column="26" lean-forward="true" selection-start-line="1" selection-start-column="26" selection-end-line="1" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="40" column="8" selection-start-line="40" selection-start-column="2" selection-end-line="40" selection-end-column="8" />
         </state>
       </provider>
     </entry>
@@ -618,16 +603,6 @@
           <caret line="68" column="46" lean-forward="true" selection-start-line="68" selection-start-column="46" selection-end-line="68" selection-end-column="46" />
           <folding>
             <element signature="e#46#85#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberEdit.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="614">
-          <caret line="45" column="58" selection-start-line="45" selection-start-column="58" selection-end-line="45" selection-end-column="58" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -656,36 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberAdd.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="34" column="17" selection-start-line="34" selection-start-column="17" selection-end-line="34" selection-end-column="17" />
-          <folding>
-            <element signature="e#46#67#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/pages/Login.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-          <folding>
-            <element signature="e#46#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberTable.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="784">
-          <caret line="245" column="21" lean-forward="true" selection-start-line="245" selection-start-column="21" selection-end-line="245" selection-end-column="21" />
-          <folding>
-            <element signature="e#46#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/App.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="354">
@@ -698,20 +643,77 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="17" column="21" lean-forward="true" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+        <state relative-caret-position="44">
+          <caret line="11" column="18" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/pages/Login.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="23">
+          <caret line="45" column="26" selection-start-line="45" selection-start-column="26" selection-end-line="45" selection-end-column="26" />
           <folding>
-            <element signature="e#39#78#0" expanded="true" />
+            <element signature="e#46#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="16" column="47" lean-forward="true" selection-start-line="16" selection-start-column="47" selection-end-line="16" selection-end-column="47" />
+          <folding>
+            <element signature="e#1101#1158#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberList.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+          <folding>
+            <element signature="e#46#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberAdd.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="39" column="15" selection-start-line="39" selection-start-column="15" selection-end-line="39" selection-end-column="15" />
+          <folding>
+            <element signature="e#46#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/axios/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="106" selection-start-line="23" selection-start-column="106" selection-end-line="23" selection-end-column="106" />
+        <state relative-caret-position="310">
+          <caret line="88" column="6" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="6" />
           <folding>
             <element signature="e#46#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberTable.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="113" column="9" selection-start-line="113" selection-start-column="9" selection-end-line="113" selection-end-column="9" />
+          <folding>
+            <element signature="e#46#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/BMScomponent/member/MemberEdit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="45" column="67" selection-start-line="45" selection-start-column="67" selection-end-line="45" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
           </folding>
         </state>
       </provider>

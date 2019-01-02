@@ -5,7 +5,9 @@ import React from 'react';
 
 import './index.less'
 
-import {getMemberList} from '../../../axios'
+import { Redirect} from 'react-router-dom';
+
+import {getMemberList,overtime} from '../../../axios'
 
 import {notices} from '../../../utils/notification'
 
@@ -106,17 +108,32 @@ export default class MemberTable extends React.Component {
   }
 
   componentDidMount() {
+    this.getMemberList()
+  }
+
+  del = () => {
+
+  }
+
+  getMemberList = () => {
     getMemberList().then(res => {
-      if (res.status) {
+      this.overtime(res)
+      if (res && res.status) {
         this.setState({
           initialData:res.data,
           data: res.data || [],
         })
       } else {
-        notices.error(res.msg)
+        notices.error(res && res.msg )
       }
     })
     this.setStateData()
+  }
+
+   overtime = (v) => {
+    if(v.msg === 'unauthorized'){
+      return this.props.history.push('/login')
+    }
   }
 
   setStateData = () => {
@@ -183,7 +200,6 @@ export default class MemberTable extends React.Component {
   }
 
   Edit = (r) => {
-    console.log(r,'rrr');
     this.setState({
       visible: true,
       EditData:r
@@ -246,7 +262,7 @@ export default class MemberTable extends React.Component {
           rowKey='id'
       />
 
-      <MemberEdit visible={visible} EditData={EditData} handleCancel={this.handleCancel} handleOk={this.handleOk}/>
+      <MemberEdit getMemberList= {this.getMemberList}visible={visible} EditData={EditData} handleCancel={this.handleCancel} handleOk={this.handleOk}/>
 
     </div>
 

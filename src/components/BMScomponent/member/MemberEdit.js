@@ -32,7 +32,7 @@ export default class MemberEdit extends React.Component {
 
 
   render() {
-    const {visible, EditData} = this.props;
+    const {visible, EditData,getMemberList} = this.props;
 
     return <div>
       <Modal
@@ -43,7 +43,7 @@ export default class MemberEdit extends React.Component {
           style={{top: 5}}
           footer={null}
       >
-        <MemberAdd EditData={EditData} handleCancel={this.handleCancel}/>
+        <MemberAdd EditData={EditData} getMemberList={getMemberList} handleCancel={this.handleCancel}/>
       </Modal>
     </div>
   }

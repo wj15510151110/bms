@@ -4,6 +4,8 @@
 import axios from 'axios';
 import {get} from './tools';
 import {post} from '../fetch'
+import React from 'react'
+import {Route, Redirect, Switch} from 'react-router-dom';
 
 import * as config from './config';
 
@@ -73,6 +75,27 @@ export const addMember = (values) => axios({
     ...res.data,
   }
 }).catch(err => console.log(err));
+//编辑会员
+export const editMember = (uid,values) => axios({
+  method: 'put',
+  url: `/member/${uid}/update`,
+  data:values,
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
+
+//删除会员
+export const delMember = (uid,values) => axios({
+  method: 'delete',
+  url: `/member/${uid}/delete`,
+  data:values,
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
 
 
 
@@ -80,7 +103,6 @@ export const gitOauthInfo = access_token => axios({
   method: 'get',
   url: 'https://api.github.com/user?access_token=' + access_token,
 }).then(res => res.data).catch(err => console.log(err));
-
 
 // easy-mock数据交互
 // 管理员权限获取

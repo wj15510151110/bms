@@ -3,7 +3,7 @@
  */
 import './index.less'
 import React, {Component} from 'react';
-import {addMember} from '../../../axios'
+import {addMember,editMember} from '../../../axios'
 import BreadcrumbCustom from '../../BreadcrumbCustom';
 import {notices} from '../../../utils/notification'
 
@@ -29,17 +29,24 @@ class MemberAdd extends Component {
   };
 
   handleSubmit = (e) => {
-    let {EditData} = this.props
+    let {EditData,getMemberList} = this.props
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         let identity = values.identity.join(',')
         let birthday = values.birthday ? values.birthday.format("YYYY-MM-DD"): ''
-        console.log(values,'values');
 
         if(EditData){
-          console.log(values,'编辑');
-          console.log(birthday,'birthdaybirthday编辑');
+          editMember(EditData.id,{...values,identity,birthday,id:EditData.id}).then(res =>{
+            console.log(res,'res');
+            if(res && res.status){
+              notices.success(res.msg)
+              getMemberList()
+
+            }else {
+              notices.error(res.msg)
+            }
+        })
           this.handleCancel()
         }else {
           addMember({...values,identity,birthday}).then(res =>{
