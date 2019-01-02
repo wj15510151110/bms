@@ -5,7 +5,6 @@ import axios from 'axios';
 import {get} from './tools';
 import {post} from '../fetch'
 import React from 'react'
-import {Route, Redirect, Switch} from 'react-router-dom';
 
 import * as config from './config';
 
@@ -96,6 +95,138 @@ export const delMember = (uid,values) => axios({
     ...res.data,
   }
 }).catch(err => console.log(err));
+//========================
+//类别列表
+export const getCategoryList = () => axios({
+  method: 'get',
+  url: '/member/type/list'
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
+
+//新增类别
+export const addCategory = params => axios.post('/member/type/add', params, {
+  transformRequest: [
+    function (params) {
+      let str = ''
+      for (let k in params) {
+        if (params.hasOwnProperty(k)) {
+          str += `${k}=${params[k]}&`
+        }
+      }
+      return str.slice(0, -1)
+    }
+  ]
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
+
+//编辑类别
+export const editCategory = params => axios.put('/member/type/update', params, {
+  transformRequest: [
+    function (params) {
+      let str = ''
+      for (let k in params) {
+        if (params.hasOwnProperty(k)) {
+          str += `${k}=${params[k]}&`
+        }
+      }
+      return str.slice(0, -1)
+    }
+  ]
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
+
+
+
+//身份列表
+export const getIdentityList = () => axios({
+  method: 'get',
+  url: '/member/tag/list'
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
+
+// 新增身份
+export const addIdentity = params => axios.post('/member/tag/add', params, {
+  transformRequest: [
+    function (params) {
+      let str = ''
+      for (let k in params) {
+        if (params.hasOwnProperty(k)) {
+          str += `${k}=${params[k]}&`
+        }
+      }
+      return str.slice(0, -1)
+    }
+  ]
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
+
+//修改身份
+export const editIdentity = params => axios.put('/member/tag/update', params, {
+  transformRequest: [
+    function (params) {
+      let str = ''
+      for (let k in params) {
+        if (params.hasOwnProperty(k)) {
+          str += `${k}=${params[k]}&`
+        }
+      }
+      return str.slice(0, -1)
+    }
+  ]
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

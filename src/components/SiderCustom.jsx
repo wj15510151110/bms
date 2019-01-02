@@ -83,7 +83,6 @@ class SiderCustom extends Component {
   };
 
   render() {
-
     return (
         <Sider
             trigger={null}

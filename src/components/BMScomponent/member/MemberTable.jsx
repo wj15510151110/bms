@@ -5,9 +5,7 @@ import React from 'react';
 
 import './index.less'
 
-import { Redirect} from 'react-router-dom';
-
-import {getMemberList,overtime} from '../../../axios'
+import {getMemberList,delMember} from '../../../axios'
 
 import {notices} from '../../../utils/notification'
 
@@ -16,6 +14,7 @@ import classNames from 'classnames'
 import {Table, Input, Popconfirm, Button} from 'antd';
 
 import filter from 'lodash/filter';
+
 import MemberEdit from "./MemberEdit";
 
 const InputGroup = Input.Group;
@@ -111,8 +110,15 @@ export default class MemberTable extends React.Component {
     this.getMemberList()
   }
 
-  del = () => {
-
+  del = (id) => {
+    delMember(id).then( res => {
+      if (res && res.status) {
+        notices.success(res.msg )
+        this.getMemberList()
+      } else {
+        notices.error(res.msg )
+      }
+    })
   }
 
   getMemberList = () => {
@@ -131,8 +137,10 @@ export default class MemberTable extends React.Component {
   }
 
    overtime = (v) => {
-    if(v.msg === 'unauthorized'){
-      return this.props.history.push('/login')
+    if(v){
+      if(v.msg === 'unauthorized'){
+        return this.props.history.push('/login')
+      }
     }
   }
 
@@ -262,7 +270,7 @@ export default class MemberTable extends React.Component {
           rowKey='id'
       />
 
-      <MemberEdit getMemberList= {this.getMemberList}visible={visible} EditData={EditData} handleCancel={this.handleCancel} handleOk={this.handleOk}/>
+      <MemberEdit getMemberList= {this.getMemberList} visible={visible} EditData={EditData} handleCancel={this.handleCancel} handleOk={this.handleOk}/>
 
     </div>
 

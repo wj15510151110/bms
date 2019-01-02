@@ -3,7 +3,7 @@
  */
 import './index.less'
 import React, {Component} from 'react';
-import {addMember,editMember} from '../../../axios'
+import {addMember, editMember, getIdentityList, getCategoryList} from '../../../axios'
 import BreadcrumbCustom from '../../BreadcrumbCustom';
 import {notices} from '../../../utils/notification'
 
@@ -26,34 +26,47 @@ const Option = Select.Option;
 class MemberAdd extends Component {
   state = {
     confirmDirty: false,
+    IdentityData: '',
+    CategoryData: ''
   };
 
+  componentDidMount() {
+    getIdentityList().then(res => {
+      this.setState({
+        IdentityData: res.data
+      })
+    })
+    getCategoryList().then(res => {
+      this.setState({
+        CategoryData: res.data
+      })
+    })
+  }
+
   handleSubmit = (e) => {
-    let {EditData,getMemberList} = this.props
+    let {EditData, getMemberList} = this.props
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         let identity = values.identity.join(',')
-        let birthday = values.birthday ? values.birthday.format("YYYY-MM-DD"): ''
+        let birthday = values.birthday ? values.birthday.format("YYYY-MM-DD") : ''
 
-        if(EditData){
-          editMember(EditData.id,{...values,identity,birthday,id:EditData.id}).then(res =>{
-            console.log(res,'res');
-            if(res && res.status){
+        if (EditData) {
+          editMember(EditData.id, {...values, identity, birthday, id: EditData.id}).then(res => {
+            if (res && res.status) {
               notices.success(res.msg)
               getMemberList()
 
-            }else {
+            } else {
               notices.error(res.msg)
             }
-        })
+          })
           this.handleCancel()
-        }else {
-          addMember({...values,identity,birthday}).then(res =>{
-            console.log(res,'res');
-            if(res && res.status){
+        } else {
+          addMember({...values, identity, birthday}).then(res => {
+            if (res && res.status) {
               this.props.history.push('/app/member/list')
-            }else {
+            } else {
               notices.error(res.msg)
             }
           })
@@ -72,9 +85,12 @@ class MemberAdd extends Component {
   render() {
     const {EditData} = this.props
 
-    console.log(EditData,'EditDataEditData11111');
+    const {CategoryData, IdentityData} = this.state
+
+    const initIdentity =  IdentityData && new Array(IdentityData[0].name)
 
     const {getFieldDecorator} = this.props.form;
+
     const formItemLayout = {
       labelCol: {
         xs: {span: 24},
@@ -99,12 +115,12 @@ class MemberAdd extends Component {
     };
     return (
         <div className="gutter-example">
-          {!EditData ?  <BreadcrumbCustom first="会员管理" second="新增会员"/> : ''}
+          {!EditData ? <BreadcrumbCustom first="会员管理" second="新增会员"/> : ''}
           <div className='member-add-box'>
             <Row gutter={24}>
               <Col className="gutter-row" md={24}>
                 <div className="gutter-box">
-                  <Card title={!EditData ? "新增会员" :' 修改会员'} bordered={false} >
+                  <Card title={!EditData ? "新增会员" : ' 修改会员'} bordered={false}>
                     <Form onSubmit={this.handleSubmit}>
 
 
@@ -164,11 +180,14 @@ class MemberAdd extends Component {
                           rules: [
                             {required: true, message: '请填写类别!'},
                           ],
-                          initialValue: (EditData && EditData.grade) ? EditData.grade : 'A',
+                          initialValue: (EditData && EditData.grade) ? EditData.grade : CategoryData && CategoryData[0].name,
                         })(
                             <Select>
-                              <Option value="A">A</Option>
-                              <Option value="B">B</Option>
+                              {
+                                CategoryData && CategoryData.length > 0 && CategoryData.map((i,key) => (
+                                    <Option key={key} value={i.name}>{i.name}</Option>
+                                ))
+                              }
                             </Select>
                         )}
                       </FormItem>
@@ -181,18 +200,20 @@ class MemberAdd extends Component {
                           rules: [
                             {required: true, message: '身份必填!', type: 'array'},
                           ],
-                          initialValue: (EditData && EditData.identity) ? EditData.identity.split(',') : ['C'],
+                          initialValue: (EditData && EditData.identity) ? EditData.identity.split(',') :initIdentity ? initIdentity : '-' ,
                         })(
-                            <Select mode="multiple" >
-                              <Option value="A">平民</Option>
-                              <Option value="B">大臣</Option>
-                              <Option value="C">君主</Option>
+                            <Select mode="multiple">
+                              {
+                                IdentityData && IdentityData.length > 0 && IdentityData.map((v,key) => (
+                                    <Option key={key} value={v.name}>{v.name}</Option>
+                                ))
+                              }
                             </Select>
                         )}
                       </FormItem>
 
                       <FormItem {...formItemLayout} label="公司名称">
-                        {getFieldDecorator('company',{
+                        {getFieldDecorator('company', {
                           initialValue: (EditData && EditData.company) ? EditData.company : ''
                         })(
                             <Input/>
@@ -200,7 +221,7 @@ class MemberAdd extends Component {
                       </FormItem>
 
                       <FormItem {...formItemLayout} label="职位">
-                        {getFieldDecorator('position',{
+                        {getFieldDecorator('position', {
                           initialValue: (EditData && EditData.position) ? EditData.position : ''
                         })(
                             <Input/>
@@ -240,7 +261,7 @@ class MemberAdd extends Component {
                           {...formItemLayout}
                           label="地址"
                       >
-                        {getFieldDecorator('addr',{
+                        {getFieldDecorator('addr', {
                           initialValue: (EditData && EditData.addr) ? EditData.addr : ''
                         })(
                             <Input/>
@@ -248,7 +269,7 @@ class MemberAdd extends Component {
                       </FormItem>
 
                       <FormItem {...formItemLayout} label="地点">
-                        {getFieldDecorator('place',{
+                        {getFieldDecorator('place', {
                           initialValue: (EditData && EditData.place) ? EditData.place : ''
                         })(
                             <Input/>
@@ -271,8 +292,8 @@ class MemberAdd extends Component {
                           {...formItemLayout}
                           label="生日"
                       >
-                        {getFieldDecorator('birthday',{
-                          initialValue: (EditData && EditData.birthday) ? moment(EditData.birthday,'YYYY-MM-DD') : ''
+                        {getFieldDecorator('birthday', {
+                          initialValue: (EditData && EditData.birthday) ? moment(EditData.birthday, 'YYYY-MM-DD') : ''
                         })(
                             <DatePicker locale={locale} format='YYYY-MM-DD'/>
                         )}
@@ -280,7 +301,8 @@ class MemberAdd extends Component {
 
                       <FormItem {...tailFormItemLayout}>
                         <Button type="primary" htmlType="submit" size="large">提交</Button>
-                        {EditData && <Button type="primary" htmlType="submit" size="large" onClick={this.handleCancel}>取消</Button>}
+                        {EditData &&
+                        <Button type="primary" htmlType="submit" size="large" onClick={this.handleCancel}>取消</Button>}
                       </FormItem>
 
                     </Form>
@@ -294,6 +316,4 @@ class MemberAdd extends Component {
   }
 }
 
-const BasicForm = Form.create()(MemberAdd);
-
-export default BasicForm;
+export default  Form.create()(MemberAdd);

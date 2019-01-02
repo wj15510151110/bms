@@ -21,6 +21,10 @@ export default {
         {key: '/app/system/shortmessage', title: '短信设置', component: 'ShortMessage'},
         {key: '/app/system/mailbox', title: '邮箱设置', component: 'MailBox'},
         {key: '/app/system/setup', title: '系统设置', component: 'SetUp'},
+        {key: '/app/system/categoryList', title: '类别列表', component: 'CategoryList'},
+        {key: '/app/system/categoryAdd', title: '新增类别', component: 'CategoryAdd'},
+        {key: '/app/system/identityList', title: '身份列表', component: 'IdentityList'},
+        {key: '/app/system/identityAdd', title: '新增身份', component: 'IdentityAdd'},
       ],
     },
     {

@@ -5,7 +5,7 @@ import React from 'react';
 
 import './index.less'
 
-import {getMemberList,overtime,delMember} from '../../../axios'
+import {getIdentityList,delMember} from '../../../axios'
 
 import {notices} from '../../../utils/notification'
 
@@ -15,11 +15,11 @@ import {Table, Input, Popconfirm, Button} from 'antd';
 
 import filter from 'lodash/filter';
 
-import MemberEdit from "./MemberEdit";
+import IdentityEdit from "./IdentityEdit";
 
 const InputGroup = Input.Group;
 
-export default class MemberTable extends React.Component {
+export default class CategoryTable extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -30,61 +30,10 @@ export default class MemberTable extends React.Component {
       selectedColumnIndexes: [],
       initialData:[],
       columns:[{
-        title: '姓名',
+        title: '身份类别',
         dataIndex: 'name',
         key: 'name',
-        editable: true,
-        fixed: 'left',
-        width: 100,
-      }, {
-        title: '类别',
-        dataIndex: 'grade',
-        key: 'grade',
-      }, {
-        title: '特殊身份',
-        dataIndex: 'identity',
-        key: 'identity',
-      }, {
-        title: '公司',
-        dataIndex: 'company',
-        key: 'company',
-        render:(v)=> v ? v :'-'
-      }, {
-        title: '职位',
-        dataIndex: 'position',
-        key: 'position',
-        render:(v)=> v ? v :'-'
-      }, {
-        title: '手机号',
-        dataIndex: 'phone',
-        key: 'phone',
-      }, {
-        title: '邮箱',
-        dataIndex: 'email',
-        key: 'email',
-        render:(v)=> v ? v :'-'
-      }, {
-        title: '地址',
-        dataIndex: 'addr',
-        key: 'addr',
-        editable: true,
-        render:(v)=> v ? v :'-'
-      }, {
-        title: '地方',
-        dataIndex: 'place',
-        key: 'place',
-        render:(v)=> v ? v :'-'
-      }, {
-        title: '生日',
-        dataIndex: 'birthday',
-        key: 'birthday',
-        render:(v)=> v ? v :'-'
-      }, {
-        title: '身份证',
-        dataIndex: 'id_card',
-        key: 'id_card',
-        render:(v)=> v ? v :'-'
-      }, {
+      },{
         title: '操作',
         dataIndex: 'operation',
         fixed: 'right',
@@ -94,12 +43,13 @@ export default class MemberTable extends React.Component {
 
             <a style={{color: '#40a9ff', marginRight: 8}} onClick={() => this.Edit(record)}>编辑</a>
 
-            <Popconfirm
+            {/*            <Popconfirm
                 title="是否删除?"
                 onConfirm={() => this.del(record.id)}
             >
               <a style={{color: '#40a9ff'}}>删除</a>
-            </Popconfirm>
+            </Popconfirm>*/}
+
           </div>
         }
       },]
@@ -107,22 +57,22 @@ export default class MemberTable extends React.Component {
   }
 
   componentDidMount() {
-    this.getMemberList()
+    this.getIdentityList()
   }
 
   del = (id) => {
     delMember(id).then( res => {
       if (res && res.status) {
         notices.success(res.msg )
-        this.getMemberList()
+        this.getIdentityList()
       } else {
         notices.error(res.msg )
       }
     })
   }
 
-  getMemberList = () => {
-    getMemberList().then(res => {
+  getIdentityList = () => {
+    getIdentityList().then(res => {
       this.overtime(res)
       if (res && res.status) {
         this.setState({
@@ -137,9 +87,12 @@ export default class MemberTable extends React.Component {
   }
 
   overtime = (v) => {
-    if(v.msg === 'unauthorized'){
-      return this.props.history.push('/login')
+    if(v){
+      if(v.msg === 'unauthorized'){
+        return this.props.history.push('/login')
+      }
     }
+
   }
 
   setStateData = () => {
@@ -264,14 +217,12 @@ export default class MemberTable extends React.Component {
       <Table
           columns={this.state.columns}
           dataSource={data}
-          scroll={{x: 1600}}
           rowKey='id'
       />
 
-      <MemberEdit getMemberList= {this.getMemberList} visible={visible} EditData={EditData} handleCancel={this.handleCancel} handleOk={this.handleOk}/>
+      <IdentityEdit getIdentityList= {this.getIdentityList} visible={visible} EditData={EditData} handleCancel={this.handleCancel} handleOk={this.handleOk}/>
 
     </div>
 
   }
-
 }
