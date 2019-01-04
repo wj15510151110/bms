@@ -53,9 +53,9 @@ class CategoryTable extends React.Component {
         title: '操作',
         dataIndex: 'operation',
         fixed: 'right',
-        width: 100,
+        width: 200,
         render: (text, record) => {
-          return <div>
+          return <div style={{display:'flex'}}>
 
             {/* <a style={{color: '#40a9ff', marginRight: 8}} onClick={() => this.Edit(record)}>编辑</a>*/}
 
