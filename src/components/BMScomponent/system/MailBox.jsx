@@ -1,77 +1,72 @@
-/**
- * Created by hao.cheng on 2017/4/13.
- */
-import React, { Component } from 'react';
-import { Card, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button } from 'antd';
-import BreadcrumbCustom from '../../BreadcrumbCustom';
-const FormItem = Form.Item;
-const Option = Select.Option;
+import './index.less'
+import React, {Component} from 'react';
 
-const residences = [{
-    value: 'AdminAdd',
-    label: 'AdminAdd',
-    children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-        }],
-    }],
-}, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-        }],
-    }],
-}];
+import {getMailBoxInfo, getMailBoxUpdate} from '../../../axios'
+import BreadcrumbCustom from '../../BreadcrumbCustom';
+import {notices} from '../../../utils/notification'
+
+import {Card, Form, Input, Select, Row, Col, Button, InputNumber, TimePicker} from 'antd';
+
+const FormItem = Form.Item;
+
+const Option = Select.Option
+
 
 class MailBox extends Component {
     state = {
-        confirmDirty: false,
+        data: ''
     };
+
+
+    componentDidMount() {
+        this.getInfo()
+    }
+
+
+    getInfo = () => {
+        getMailBoxInfo().then(v => {
+            console.log(v, v);
+            this.setState({
+                data: v.data
+            })
+        })
+    }
+
     handleSubmit = (e) => {
+        let {data} = this.state
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+                getMailBoxUpdate({...values, id: data.id}).then(res => {
+                    if (res && res.status) {
+                        notices.success(res.msg || '修改成功')
+
+                    } else {
+                        notices.error(res.msg)
+                    }
+                })
+
             }
         });
     };
-    handleConfirmBlur = (e) => {
-        const value = e.target.value;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    };
-    checkPassword = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
-        } else {
-            callback();
-        }
-    };
-    checkConfirm = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
-        }
-        callback();
-    };
+
+    handleCancel = () => {
+        this.props.form.resetFields()
+    }
+
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const {data} = this.state
+
+        const {getFieldDecorator} = this.props.form;
+
         const formItemLayout = {
             labelCol: {
-                xs: { span: 24 },
-                sm: { span: 8 },
+                xs: {span: 24},
+                sm: {span: 6},
             },
             wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 14 },
+                xs: {span: 24},
+                sm: {span: 14},
             },
         };
         const tailFormItemLayout = {
@@ -81,142 +76,103 @@ class MailBox extends Component {
                     offset: 0,
                 },
                 sm: {
-                    span: 14,
-                    offset: 8,
+                    span: 24,
+                    offset: 6,
                 },
             },
         };
-        const prefixSelector = getFieldDecorator('prefix', {
-            initialValue: '86',
-        })(
-            <Select className="icp-selector" style={{width: '60px'}}>
-                <Option value="86">+86</Option>
-            </Select>
-        );
+        let _this = this
         return (
-        <div className="gutter-example">
-            <BreadcrumbCustom first="管理员" second="新增管理员" />
-            <Row gutter={24}>
-                <Col className="gutter-row" md={24}>
-                    <div className="gutter-box">
-                        <Card title="新增管理员" bordered={false}>
-                            <Form onSubmit={this.handleSubmit}>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="邮箱"
-                                    hasFeedback
-                                >
-                                    {getFieldDecorator('email', {
-                                        rules: [{
-                                            type: 'email', message: '请输入合理的邮箱地址!',
-                                        }, {
-                                            required: true, message: '请输入邮箱地址!',
-                                        }],
-                                    })(
-                                        <Input />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="密码"
-                                    hasFeedback
-                                >
-                                    {getFieldDecorator('password', {
-                                        rules: [{
-                                            required: true, message: '请输入密码!',
-                                        }, {
-                                            validator: this.checkConfirm,
-                                        }],
-                                    })(
-                                        <Input type="password" />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="确认密码"
-                                    hasFeedback
-                                >
-                                    {getFieldDecorator('confirm', {
-                                        rules: [{
-                                            required: true, message: '请确认你的密码!',
-                                        }, {
-                                            validator: this.checkPassword,
-                                        }],
-                                    })(
-                                        <Input type="password" onBlur={this.handleConfirmBlur} />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label={(
-                                        <span>
-                                            昵称&nbsp;
-                                            <Tooltip title="别人怎么称呼你?">
-                                            <Icon type="question-circle-o" />
-                                          </Tooltip>
-                                        </span>
-                                    )}
-                                    hasFeedback
-                                >
-                                    {getFieldDecorator('nickname', {
-                                        rules: [{ required: true, message: '请输入昵称!', whitespace: true }],
-                                    })(
-                                        <Input />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="常住地址"
-                                >
-                                    {getFieldDecorator('residence', {
-                                        initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-                                        rules: [{ type: 'array', required: true, message: '请选择你的常住地址!' }],
-                                    })(
-                                        <Cascader options={residences} />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="电话号码"
-                                >
-                                    {getFieldDecorator('phone', {
-                                        rules: [{ required: true, message: '请输入你的电话号码!' }],
-                                    })(
-                                        <Input addonBefore={prefixSelector} />
+            <div className="gutter-example">
+                <BreadcrumbCustom first="系统设置" second="邮箱设置"/>
+                <div className='member-add-box'>
+                    <Row gutter={24}>
+                        <Col className="gutter-row" md={24}>
+                            <div className="gutter-box">
+                                <Card title="邮箱设置" bordered={false}>
+                                    <Form onSubmit={this.handleSubmit}>
 
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="验证码"
-                                    extra="我们必须确认你不是机器人."
-                                >
-                                    <Row gutter={8}>
-                                        <Col span={12}>
-                                            {getFieldDecorator('captcha', {
-                                                rules: [{ required: true, message: '请输入你获取的验证码!' }],
+                                        <Form.Item
+                                            {...formItemLayout}
+                                            label="邮箱"
+                                        >
+                                            {getFieldDecorator('email', {
+                                                rules: [{
+                                                    required: true,
+                                                    type: 'email', message: '请输入合理的邮箱地址!',
+                                                }],
+                                                initialValue: (data && data.email) ? data.email : ''
+
                                             })(
-                                                <Input size="large" />
+                                                <Input/>
                                             )}
-                                        </Col>
-                                        <Col span={12}>
-                                            <Button size="large">获取验证码</Button>
-                                        </Col>
-                                    </Row>
-                                </FormItem>
-                                <FormItem {...tailFormItemLayout}>
-                                    <Button type="primary" htmlType="submit" size="large">注册</Button>
-                                </FormItem>
-                            </Form>
-                        </Card>
-                    </div>
-                </Col>
-            </Row>
-        </div>
+                                        </Form.Item>
+
+
+                                        <FormItem {...formItemLayout} label="密码">
+                                            {getFieldDecorator('password', {
+                                                rules: [{
+                                                    required: true,
+                                                    message: '请填密码'
+                                                }],
+                                                initialValue: (data && data.password) ? data.password : ''
+                                            })(
+                                                <Input/>
+                                            )}
+                                        </FormItem>
+
+                                        <FormItem {...formItemLayout} label="smtp">
+                                            {getFieldDecorator('smtp', {
+                                                rules: [{
+                                                    required: true,
+                                                    message: '请填短信地址'
+                                                }],
+                                                initialValue: (data && data.smtp) ? data.smtp : ''
+                                            })(
+                                                <Input/>
+                                            )}
+                                        </FormItem>
+
+                                        <FormItem {...formItemLayout} label="端口">
+                                            {getFieldDecorator('port', {
+                                                rules: [{
+                                                    required: true,
+                                                    message: '请填端口'
+                                                }],
+                                                initialValue: (data && data.port) ? data.port : ''
+                                            })(
+                                                <InputNumber/>
+                                            )}
+                                        </FormItem>
+
+                                        <FormItem {...formItemLayout} label="是否使用">
+                                            {getFieldDecorator('use', {
+                                                rules: [{
+                                                    required: true,
+                                                    message: '是否使用必填'
+                                                }],
+                                                initialValue: (data && data.use) ? data.use : 0
+                                            })(
+                                                <Select>
+                                                    <Option key={0} value={0}>关闭 </Option>
+                                                    <Option key={1} value={1}>开启</Option>
+                                                </Select>
+                                            )}
+                                        </FormItem>
+
+                                        <FormItem {...tailFormItemLayout}>
+                                            <Button type="primary" htmlType="submit" size="large">提交</Button>
+                                        </FormItem>
+
+                                    </Form>
+                                </Card>
+                            </div>
+                        </Col>
+                    </Row>
+                </div>
+            </div>
         )
     }
 }
 
-const BasicForm = Form.create()(MailBox);
-
-export default BasicForm;
+export default Form.create()(MailBox);

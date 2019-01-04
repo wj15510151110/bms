@@ -128,6 +128,7 @@ class MemberAdd extends Component {
                         {getFieldDecorator('name', {
                           rules: [{
                             required: true,
+                            message: '请填写姓名!'
                           }],
                           initialValue: (EditData && EditData.name) ? EditData.name : ''
                         })(

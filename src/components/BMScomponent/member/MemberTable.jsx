@@ -5,13 +5,15 @@ import React from 'react';
 
 import './index.less'
 
-import {getMemberList,delMember} from '../../../axios'
+import ImportData from './ImportData'
+
+import {getMemberList,delMember,daochu} from '../../../axios'
 
 import {notices} from '../../../utils/notification'
 
 import classNames from 'classnames'
 
-import {Table, Input, Popconfirm, Button} from 'antd';
+import {Table, Input, Popconfirm, Button,Modal} from 'antd';
 
 import filter from 'lodash/filter';
 
@@ -29,6 +31,7 @@ export default class MemberTable extends React.Component {
       selectedColumnKeys: [],
       selectedColumnIndexes: [],
       initialData:[],
+      importDataVisible:false,
       columns:[{
         title: '姓名',
         dataIndex: 'name',
@@ -130,7 +133,7 @@ export default class MemberTable extends React.Component {
           data: res.data || [],
         })
       } else {
-        notices.error(res && res.msg )
+        notices.error(res && res.msg === 'unauthorized' ? '没有权限' : res.msg )
       }
     })
     this.setStateData()
@@ -225,11 +228,37 @@ export default class MemberTable extends React.Component {
     });
   }
 
+  onExportData = () => {
+    window.open(`/kylinclub/member/exports`)
+  }
 
+
+  onImportData = () => {
+    this.setState({
+      importDataVisible: true
+    })
+  }
+
+
+  getChildFn = (childFn) => {
+    this.setState({
+      childFn,
+    })
+  }
+
+
+  closeDataVisible = () => {
+    this.setState({
+      exportDataVisible: false,
+      importDataVisible: false
+    })
+    let {childFn} = this.state
+    childFn && childFn()
+  }
 
   render() {
 
-    const {data,visible,EditData} = this.state
+    const {data,visible,EditData,importDataVisible} = this.state
 
     const btnCls = classNames({
       'ant-search-btn': true,
@@ -245,7 +274,7 @@ export default class MemberTable extends React.Component {
           }}
       >
         <div style={{display: 'flex'}}>
-          <InputGroup className="ant-search-input" style={{width: '170px'}}>
+          <InputGroup className="ant-search-input" style={{width: '170px',marginRight:'10px'}}>
             <Input
                 value={this.state.token}
                 onPressEnter={this.onPressEnter}
@@ -261,6 +290,20 @@ export default class MemberTable extends React.Component {
               />
             </div>
           </InputGroup>
+
+          <div className={'right-div'}>
+            <Button
+                type="primary"
+                className="ant-tab-btn"
+                onClick={this.onExportData}
+            >导出数据</Button>
+            <Button
+                type="primary"
+                className="ant-tab-btn"
+                onClick={this.onImportData}
+            >导入</Button>
+          </div>
+
         </div>
       </div>
       <Table
@@ -271,6 +314,22 @@ export default class MemberTable extends React.Component {
       />
 
       <MemberEdit getMemberList= {this.getMemberList} visible={visible} EditData={EditData} handleCancel={this.handleCancel} handleOk={this.handleOk}/>
+
+
+      <Modal
+          title="确认导入"
+          onCancel={this.closeDataVisible}
+          visible={importDataVisible}
+          width={1000}
+          footer={null}
+          maskClosable={false}
+
+      >
+        <ImportData
+            getMemberList={this.getMemberList}
+            getChildFn={this.getChildFn}
+        />
+      </Modal>
 
     </div>
 

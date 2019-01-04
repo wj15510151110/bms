@@ -1,222 +1,213 @@
-/**
- * Created by hao.cheng on 2017/4/13.
- */
-import React, { Component } from 'react';
-import { Card, Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button } from 'antd';
-import BreadcrumbCustom from '../../BreadcrumbCustom';
-const FormItem = Form.Item;
-const Option = Select.Option;
+import './index.less'
+import React, {Component} from 'react';
 
-const residences = [{
-    value: 'AdminAdd',
-    label: 'AdminAdd',
-    children: [{
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [{
-            value: 'xihu',
-            label: 'West Lake',
-        }],
-    }],
-}, {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [{
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [{
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-        }],
-    }],
-}];
+import moment from 'moment';
+
+import {getSetUpInfo, getSetUpUpdate} from '../../../axios'
+import BreadcrumbCustom from '../../BreadcrumbCustom';
+import {notices} from '../../../utils/notification'
+
+import {Card, Form, Input, Select, Row, Col, Button, InputNumber,TimePicker} from 'antd';
+
+const FormItem = Form.Item;
+
+const Option = Select.Option
+
+
+
 
 class SetUp extends Component {
-    state = {
-        confirmDirty: false,
-    };
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-    };
-    handleConfirmBlur = (e) => {
-        const value = e.target.value;
-        this.setState({ confirmDirty: this.state.confirmDirty || !!value });
-    };
-    checkPassword = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && value !== form.getFieldValue('password')) {
-            callback('Two passwords that you enter is inconsistent!');
-        } else {
-            callback();
-        }
-    };
-    checkConfirm = (rule, value, callback) => {
-        const form = this.props.form;
-        if (value && this.state.confirmDirty) {
-            form.validateFields(['confirm'], { force: true });
-        }
-        callback();
-    };
-    render() {
-        const { getFieldDecorator } = this.props.form;
-        const formItemLayout = {
-            labelCol: {
-                xs: { span: 24 },
-                sm: { span: 8 },
-            },
-            wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 14 },
-            },
-        };
-        const tailFormItemLayout = {
-            wrapperCol: {
-                xs: {
-                    span: 24,
-                    offset: 0,
-                },
-                sm: {
-                    span: 14,
-                    offset: 8,
-                },
-            },
-        };
-        const prefixSelector = getFieldDecorator('prefix', {
-            initialValue: '86',
-        })(
-            <Select className="icp-selector" style={{width: '60px'}}>
-                <Option value="86">+86</Option>
-            </Select>
-        );
-        return (
-        <div className="gutter-example">
-            <BreadcrumbCustom first="管理员" second="新增管理员" />
-            <Row gutter={24}>
-                <Col className="gutter-row" md={24}>
-                    <div className="gutter-box">
-                        <Card title="新增管理员" bordered={false}>
-                            <Form onSubmit={this.handleSubmit}>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="邮箱"
-                                    hasFeedback
-                                >
-                                    {getFieldDecorator('email', {
-                                        rules: [{
-                                            type: 'email', message: '请输入合理的邮箱地址!',
-                                        }, {
-                                            required: true, message: '请输入邮箱地址!',
-                                        }],
-                                    })(
-                                        <Input />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="密码"
-                                    hasFeedback
-                                >
-                                    {getFieldDecorator('password', {
-                                        rules: [{
-                                            required: true, message: '请输入密码!',
-                                        }, {
-                                            validator: this.checkConfirm,
-                                        }],
-                                    })(
-                                        <Input type="password" />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="确认密码"
-                                    hasFeedback
-                                >
-                                    {getFieldDecorator('confirm', {
-                                        rules: [{
-                                            required: true, message: '请确认你的密码!',
-                                        }, {
-                                            validator: this.checkPassword,
-                                        }],
-                                    })(
-                                        <Input type="password" onBlur={this.handleConfirmBlur} />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label={(
-                                        <span>
-                                            昵称&nbsp;
-                                            <Tooltip title="别人怎么称呼你?">
-                                            <Icon type="question-circle-o" />
-                                          </Tooltip>
-                                        </span>
-                                    )}
-                                    hasFeedback
-                                >
-                                    {getFieldDecorator('nickname', {
-                                        rules: [{ required: true, message: '请输入昵称!', whitespace: true }],
-                                    })(
-                                        <Input />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="常住地址"
-                                >
-                                    {getFieldDecorator('residence', {
-                                        initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-                                        rules: [{ type: 'array', required: true, message: '请选择你的常住地址!' }],
-                                    })(
-                                        <Cascader options={residences} />
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="电话号码"
-                                >
-                                    {getFieldDecorator('phone', {
-                                        rules: [{ required: true, message: '请输入你的电话号码!' }],
-                                    })(
-                                        <Input addonBefore={prefixSelector} />
+  state = {
+    data: ''
+  };
 
-                                    )}
-                                </FormItem>
-                                <FormItem
-                                    {...formItemLayout}
-                                    label="验证码"
-                                    extra="我们必须确认你不是机器人."
-                                >
-                                    <Row gutter={8}>
-                                        <Col span={12}>
-                                            {getFieldDecorator('captcha', {
-                                                rules: [{ required: true, message: '请输入你获取的验证码!' }],
-                                            })(
-                                                <Input size="large" />
-                                            )}
-                                        </Col>
-                                        <Col span={12}>
-                                            <Button size="large">获取验证码</Button>
-                                        </Col>
-                                    </Row>
-                                </FormItem>
-                                <FormItem {...tailFormItemLayout}>
-                                    <Button type="primary" htmlType="submit" size="large">注册</Button>
-                                </FormItem>
-                            </Form>
-                        </Card>
-                    </div>
-                </Col>
-            </Row>
-        </div>
-        )
+
+  componentDidMount() {
+    this.getInfo()
+  }
+
+
+  getInfo = () => {
+    getSetUpInfo().then(v => {
+      this.overtime(v)
+      this.setState({
+        data: v.data
+      })
+    })
+  }
+
+  overtime = (v) => {
+    if(v){
+      if(v.msg === 'unauthorized'){
+        return this.props.history.push('/login')
+      }
     }
+  }
+
+  handleSubmit = (e) => {
+    let {data} = this.state
+    let {fieldsValue}  = this.props.form
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll((err, values) => {
+      if (!err) {
+        let  remind_time = moment(values['remind_time']).format('HH:mm');
+        getSetUpUpdate({...values,remind_time, id: data.id}).then(res => {
+          if (res && res.status) {
+            notices.success(res.msg || '修改成功')
+
+          } else {
+            notices.error(res.msg)
+          }
+        })
+
+      }
+    });
+  };
+
+  handleCancel = () => {
+    this.props.form.resetFields()
+  }
+
+  gitStamp = (time) => {
+    let date = `2019-12-12 ${time}:00.0`;
+    date = date.substring(0,19);
+    date = date.replace(/-/g,'/');
+    let timestamp = new Date(date).getTime();
+    return timestamp
+  }
+
+  render() {
+    const {EditData, data} = this.state
+
+    const {getFieldDecorator,getFieldProps} = this.props.form;
+
+    const formItemLayout = {
+      labelCol: {
+        xs: {span: 24},
+        sm: {span: 6},
+      },
+      wrapperCol: {
+        xs: {span: 24},
+        sm: {span: 14},
+      },
+    };
+    const tailFormItemLayout = {
+      wrapperCol: {
+        xs: {
+          span: 24,
+          offset: 0,
+        },
+        sm: {
+          span: 24,
+          offset: 6,
+        },
+      },
+    };
+    let _this = this
+    return (
+        <div className="gutter-example">
+          <BreadcrumbCustom first="系统设置" second="系统信息"/>
+          <div className='member-add-box'>
+            <Row gutter={24}>
+              <Col className="gutter-row" md={24}>
+                <div className="gutter-box">
+                  <Card title="系统信息" bordered={false}>
+                    <Form onSubmit={this.handleSubmit}>
+
+
+                      <FormItem {...formItemLayout} label="提前几天生日提醒">
+                        {getFieldDecorator('remind_date', {
+                          rules: [{
+                            required: true,
+                            message: '请填写生日提醒!'
+                          }],
+                          initialValue: (data && data.remind_date) ? data.remind_date : 1
+                        })(
+                            <InputNumber min={1} max={1000}/>
+                        )}
+                      </FormItem>
+
+                      <Form.Item
+                          {...formItemLayout}
+                          label="每天提醒时间"
+                      >
+                        {getFieldDecorator('remind_time',{
+                          rules: [{
+                            required: true,
+                            message: '请填写每天提醒时间!'
+                          }],
+                          initialValue: (data && data.remind_time) ?  moment(this.gitStamp(data.remind_time)): ''
+
+                        })(
+                            <TimePicker format="HH:mm"/>
+                        )}
+                      </Form.Item>
+
+
+                      <FormItem {...formItemLayout} label="提醒类型">
+                        {getFieldDecorator('remind_type', {
+                          rules: [{
+                            required: true,
+                            message: '请填写类类型'
+                          }],
+                          initialValue: (data && data.remind_type) ? data.remind_type : 1
+                        })(
+                            <Select>
+                              <Option key={1} value={1}>短信提醒 </Option>
+                              <Option key={2} value={2}>邮件提醒</Option>
+                              <Option key={3} value={3}>短信+邮件</Option>
+                              <Option key={0} value={0}>不提醒"</Option>
+                            </Select>
+                        )}
+                      </FormItem>
+
+                      <FormItem {...formItemLayout} label="提醒手机号">
+                        {getFieldDecorator('phone', {
+                          rules: [{
+                            required: true,
+                            message: '请填写手机号'
+                          }, {
+                            pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
+                            message: '请填写正确的手机号'
+                          }],
+                          initialValue: (data && data.phone) ? data.phone : ''
+                        })(
+                            <Input/>
+                        )}
+                      </FormItem>
+
+                      <FormItem {...formItemLayout} label="提醒邮箱">
+                        {getFieldDecorator('e_mail', {
+                          rules: [{
+                            type: 'email', message: '请输入合理的邮箱地址!',
+                          }],
+                          initialValue: (data && data.e_mail) ? data.e_mail : ''
+                        })(
+                            <Input/>
+                        )}
+                      </FormItem>
+
+                      <FormItem {...formItemLayout} label="提醒模板">
+                        {getFieldDecorator('template', {
+                          initialValue: (data && data.template) ? data.template : ''
+                        })(
+                            <Input rows={4} type='textarea'/>
+                        )}
+                      </FormItem>
+
+                      <FormItem {...tailFormItemLayout}>
+                        <Button type="primary" htmlType="submit" size="large">提交</Button>
+                      </FormItem>
+
+                    </Form>
+                  </Card>
+                </div>
+              </Col>
+            </Row>
+          </div>
+        </div>
+    )
+  }
 }
 
-const BasicForm = Form.create()(SetUp);
-
-export default BasicForm;
+export default Form.create()(SetUp);

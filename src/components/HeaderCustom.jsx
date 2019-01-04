@@ -10,6 +10,8 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {PwaInstaller} from './widget';
 
+import {logout,chpwd} from '../axios'
+
 const {Header} = Layout;
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -31,8 +33,13 @@ class HeaderCustom extends Component {
     if (screenfull.enabled) {
       screenfull.request();
     }
-
   };
+
+  changePassword = (e) => {
+    e.preventDefault()
+    this.props.history.push('/app/system/changePassword')
+  }
+
   menuClick = e => {
     console.log(e);
     e.key === 'logout' && this.logout();
@@ -41,8 +48,15 @@ class HeaderCustom extends Component {
     localStorage.removeItem('user');
     localStorage.removeItem('login');
     localStorage.removeItem('info');
+    this.logoutA()
     this.props.history.push('/login')
   };
+
+  logoutA = () => {
+    logout().then(res => {
+      console.log(res,'res');
+    })
+  }
   popoverHide = () => {
     this.setState({
       visible: false,
@@ -82,7 +96,7 @@ class HeaderCustom extends Component {
             <SubMenu
                 title={<span className="avatar"><img src={avater} alt="头像"/><i className="on bottom b-white"/></span>}>
               {/*<Menu.Item key="setting:1">你好 - {this.props.user.userName}</Menu.Item>*/}
-              <Menu.Item key="setting:2">修改密码</Menu.Item>
+              <Menu.Item key="setting:2"><span  onClick={(e) => this.changePassword(e)}>修改密码</span></Menu.Item>
               <Menu.Item key="logout"><span onClick={this.logout}>退出登录</span></Menu.Item>
             </SubMenu>
           </Menu>

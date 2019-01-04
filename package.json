@@ -137,5 +137,5 @@
       "react-app"
     ]
   },
-  "proxy": "http://member.kylinclub.org/kylinclub"
+  "proxy": "http://member.kylinclub.org"
 }

@@ -42,6 +42,8 @@ import IdentityList from './BMScomponent/system/IdentityList'
 import IdentityAdd from './BMScomponent/system/IdentityAdd'
 
 import SetUp from './BMScomponent/system/SetUp'
+import ChangePassword from './BMScomponent/system/ChangePassword'
+
 import ShortMessage from './BMScomponent/system/ShortMessage'
 
 
@@ -53,15 +55,18 @@ const WysiwygBundle = Loadable({ // 按需加载富文本配置
 export default {
   MemberList,
   MemberAdd,
+
   CategoryList,
   CategoryAdd,
   IdentityList,
   IdentityAdd,
+
   AdminList,
   AdminAdd,
+
   MailBox,
   SetUp,
   ShortMessage,
-  Dashboard,
+  ChangePassword,
   RouterEnter,
 }

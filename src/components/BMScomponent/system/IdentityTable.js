@@ -80,7 +80,7 @@ export default class CategoryTable extends React.Component {
           data: res.data || [],
         })
       } else {
-        notices.error(res && res.msg )
+        notices.error(res && res.msg === 'unauthorized' ? '没有权限' : res.msg)
       }
     })
     this.setStateData()
@@ -92,7 +92,6 @@ export default class CategoryTable extends React.Component {
         return this.props.history.push('/login')
       }
     }
-
   }
 
   setStateData = () => {
