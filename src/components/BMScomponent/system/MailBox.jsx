@@ -25,7 +25,6 @@ class MailBox extends Component {
 
     getInfo = () => {
         getMailBoxInfo().then(v => {
-            console.log(v, v);
             this.setState({
                 data: v.data
             })

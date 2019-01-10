@@ -36,6 +36,10 @@ class CategoryTable extends React.Component {
         dataIndex: 'name',
         key: 'name',
       }, {
+        title: '用户名',
+        dataIndex: 'username',
+        key: 'name',
+      },{
         title: '手机号',
         dataIndex: 'phone',
         key: 'phone',

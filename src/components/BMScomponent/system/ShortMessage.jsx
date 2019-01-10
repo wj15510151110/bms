@@ -27,7 +27,6 @@ class ShortMessage extends Component {
 
   getInfo = () => {
     getShortMessageInfo().then(v => {
-      console.log(v, v);
       this.setState({
         data: v.data
       })

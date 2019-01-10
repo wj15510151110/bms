@@ -23,7 +23,7 @@ class Login extends React.Component {
     if (nextLogin.data && nextLogin.data.status) { // 判断是否登陆
       localStorage.setItem('login', JSON.stringify(nextLogin.data));
       localStorage.setItem('user', JSON.stringify(nextLogin.data));
-      history.push('/');
+      history.push('/app/dashboard/index');
     }
   }
 
@@ -31,7 +31,6 @@ class Login extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         const {fetchData} = this.props;
 
         fetchData({

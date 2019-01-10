@@ -85,14 +85,29 @@ class AdminAdd extends Component {
                   <Card title={!EditData ? "新增人员" : ' 修改人员'} bordered={false}>
                     <Form onSubmit={this.handleSubmit}>
 
+                      <FormItem {...formItemLayout} label="用户姓名">
+                        {getFieldDecorator('name', {
+                          rules: [{
+                            required: true,
+                            message:'请填写用户姓名'
+                          }],
+                          initialValue: (EditData && EditData.name) ? EditData.name : ''
+                        })(
+                            <Input/>
+                        )}
+                      </FormItem>
+
 
                       <FormItem {...formItemLayout} label="用户名">
                         {getFieldDecorator('username', {
                           rules: [{
                             required: true,
                             message:'请填写用户名'
-                          }],
-                          initialValue: (EditData && EditData.name) ? EditData.name : ''
+                          }, {
+                              pattern: /^[_a-zA-Z0-9]+$/,
+                              message: '只能是英文和数字和下划线'
+                            }],
+                          initialValue: (EditData && EditData.username) ? EditData.username : ''
                         })(
                             <Input/>
                         )}
