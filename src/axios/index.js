@@ -104,6 +104,17 @@ export const getMemberList = () => axios({
   }
 }).catch(err => console.log(err));
 
+
+//会员是生日列表
+export const getMemberSearchList = (value) => axios({
+  method: 'get',
+  url: `/kylinclub/member/search/list?day=${value}`
+}).then(res => {
+  return {
+    ...res.data,
+  }
+}).catch(err => console.log(err));
+
 //增加会员
 export const addMember = (values) => axios({
   method: 'post',

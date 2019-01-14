@@ -39,8 +39,6 @@ export default class ImportData extends React.Component {
   }
 
   render() {
-    console.log(this.state.importList, 'importList');
-    console.log(this.state.cmdbHostColumns, 'cmdbHostColumns');
     let _this = this
     const upload = {
       name: 'file',

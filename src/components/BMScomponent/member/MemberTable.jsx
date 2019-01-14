@@ -7,13 +7,13 @@ import './index.less'
 
 import ImportData from './ImportData'
 
-import {getMemberList,delMember,daochu} from '../../../axios'
+import {getMemberList, delMember, daochu,getMemberSearchList} from '../../../axios'
 
 import {notices} from '../../../utils/notification'
 
 import classNames from 'classnames'
 
-import {Table, Input, Popconfirm, Button,Modal} from 'antd';
+import {Table, Input, Popconfirm, Button, Modal, InputNumber} from 'antd';
 
 import filter from 'lodash/filter';
 
@@ -26,13 +26,13 @@ export default class MemberTable extends React.Component {
     super(props)
     this.state = {
       data: [],
-      token:'',
-      EditData:'',
+      token: '',
+      EditData: '',
       selectedColumnKeys: [],
       selectedColumnIndexes: [],
-      initialData:[],
-      importDataVisible:false,
-      columns:[{
+      initialData: [],
+      importDataVisible: false,
+      columns: [{
         title: '姓名',
         dataIndex: 'name',
         key: 'name',
@@ -51,12 +51,12 @@ export default class MemberTable extends React.Component {
         title: '公司',
         dataIndex: 'company',
         key: 'company',
-        render:(v)=> v ? v :'-'
+        render: (v) => v ? v : '-'
       }, {
         title: '职位',
         dataIndex: 'position',
         key: 'position',
-        render:(v)=> v ? v :'-'
+        render: (v) => v ? v : '-'
       }, {
         title: '手机号',
         dataIndex: 'phone',
@@ -65,28 +65,28 @@ export default class MemberTable extends React.Component {
         title: '邮箱',
         dataIndex: 'email',
         key: 'email',
-        render:(v)=> v ? v :'-'
+        render: (v) => v ? v : '-'
       }, {
         title: '地址',
         dataIndex: 'addr',
         key: 'addr',
         editable: true,
-        render:(v)=> v ? v :'-'
+        render: (v) => v ? v : '-'
       }, {
         title: '地方',
         dataIndex: 'place',
         key: 'place',
-        render:(v)=> v ? v :'-'
+        render: (v) => v ? v : '-'
       }, {
         title: '生日',
         dataIndex: 'birthday',
         key: 'birthday',
-        render:(v)=> v ? v :'-'
+        render: (v) => v ? v : '-'
       }, {
         title: '身份证',
         dataIndex: 'id_card',
         key: 'id_card',
-        render:(v)=> v ? v :'-'
+        render: (v) => v ? v : '-'
       }, {
         title: '操作',
         dataIndex: 'operation',
@@ -114,12 +114,12 @@ export default class MemberTable extends React.Component {
   }
 
   del = (id) => {
-    delMember(id).then( res => {
+    delMember(id).then(res => {
       if (res && res.status) {
-        notices.success(res.msg )
+        notices.success(res.msg)
         this.getMemberList()
       } else {
-        notices.error(res.msg )
+        notices.error(res.msg)
       }
     })
   }
@@ -129,19 +129,19 @@ export default class MemberTable extends React.Component {
       this.overtime(res)
       if (res && res.status) {
         this.setState({
-          initialData:res.data,
+          initialData: res.data,
           data: res.data || [],
         })
       } else {
-        notices.error(res && res.msg === 'unauthorized' ? '没有权限' : res.msg )
+        notices.error(res && res.msg === 'unauthorized' ? '没有权限' : res.msg)
       }
     })
     this.setStateData()
   }
 
-   overtime = (v) => {
-    if(v){
-      if(v.msg === 'unauthorized'){
+  overtime = (v) => {
+    if (v) {
+      if (v.msg === 'unauthorized') {
         return this.props.history.push('/login')
       }
     }
@@ -203,28 +203,63 @@ export default class MemberTable extends React.Component {
   }
 
 
-
-  handleInputChange = (e) =>  {
+  handleInputChange = (e) => {
     this.setState({
       token: e.target.value
     });
   }
 
+
+  handleInputChangeInp = (e) => {
+    this.setState({
+      inpN: e.target.value
+    });
+  }
+
+  onPressEnterInp = () => {
+    let {inpN,initialData} = this.state
+    if (/^[0-9]*$/.test(inpN)) {
+      if(inpN === ''){
+        this.setState({
+          data:initialData
+        })
+      }else {
+        this.getMemberSearchList(inpN-1)
+      }
+    } else {
+      this.setState({
+        data:[]
+      })
+    }
+  }
+
+  getMemberSearchList = (value) => {
+    getMemberSearchList(value).then( res => {
+      if(res && res.status){
+        this.setState({
+          data : res.data
+        })
+      }else {
+        notices.error(res.msg)
+      }
+    })
+  }
+
   Edit = (r) => {
     this.setState({
       visible: true,
-      EditData:r
+      EditData: r
     })
   }
 
   handleOk = () => {
-    this.setState({ loading: false });
+    this.setState({loading: false});
   }
 
   handleCancel = () => {
     this.setState({
       visible: false,
-      EditData:'',
+      EditData: '',
     });
   }
 
@@ -258,7 +293,7 @@ export default class MemberTable extends React.Component {
 
   render() {
 
-    const {data,visible,EditData,importDataVisible} = this.state
+    const {data, visible, EditData, importDataVisible} = this.state
 
     const btnCls = classNames({
       'ant-search-btn': true,
@@ -268,13 +303,15 @@ export default class MemberTable extends React.Component {
     return <div>
       <div
           style={{
-            margin:'0 0 25px 0',
+            with: '100%',
+            margin: '0 0 25px 0',
             display: 'flex',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}
       >
         <div style={{display: 'flex'}}>
-          <InputGroup className="ant-search-input" style={{width: '170px',marginRight:'10px'}}>
+          <InputGroup className="ant-search-input" style={{width: '170px', marginRight: '10px'}}>
             <Input
                 value={this.state.token}
                 onPressEnter={this.onPressEnter}
@@ -303,9 +340,33 @@ export default class MemberTable extends React.Component {
                 onClick={this.onImportData}
             >导入</Button>
           </div>
-
         </div>
+
+        <div style={{display: 'flex',alignItems: 'center'}}>
+          <div style={{marginRight: '10px', cursor: 'pointer'}}>筛选最近的生日:</div>
+          <div style={{marginRight: '10px', cursor: 'pointer', color: '#1890ff'}} onClick={() => this.getMemberSearchList(0)}>一天内</div>
+          <div style={{marginRight: '10px', cursor: 'pointer', color: '#1890ff'}} onClick={() => this.getMemberSearchList(1)}>二天内</div>
+          <div style={{marginRight: '10px', cursor: 'pointer', color: '#1890ff'}} onClick={() => this.getMemberSearchList(2)}>三天内</div>
+          <InputGroup className="ant-search-input" style={{width: '170px', marginRight: '10px'}}>
+            <Input
+                value={this.state.inpN}
+                onPressEnter={this.onPressEnterInp}
+                onChange={this.handleInputChangeInp}
+                placeholder="多少天之内"
+            />
+            <div className="ant-input-group-wrap">
+              <Button
+                  icon="search"
+                  className={btnCls}
+                  onClick={this.onPressEnterInp}
+                  style={{borderRadius: '0 4px 4px 0'}}
+              />
+            </div>
+          </InputGroup>
+        </div>
+
       </div>
+
       <Table
           columns={this.state.columns}
           dataSource={data}
@@ -313,7 +374,8 @@ export default class MemberTable extends React.Component {
           rowKey='id'
       />
 
-      <MemberEdit getMemberList= {this.getMemberList} visible={visible} EditData={EditData} handleCancel={this.handleCancel} handleOk={this.handleOk}/>
+      <MemberEdit getMemberList={this.getMemberList} visible={visible} EditData={EditData}
+                  handleCancel={this.handleCancel} handleOk={this.handleOk}/>
 
 
       <Modal
